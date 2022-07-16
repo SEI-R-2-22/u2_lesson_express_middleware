@@ -50,19 +50,21 @@ Middleware can be described as a function that run's in the middle of a request 
 
 ### Utilizing 3rd Party Middleware
 
-Let's install a depedency that we will use as `middleware`.
+Let's install a couple of depedencies that we will use as `middleware`.
 
 ```sh
-npm install cors
+npm install cors morgan
 ```
 
 - [cors](https://www.npmjs.com/package/cors)
+- [morgan](https://www.npmjs.com/package/morgan)
 
 Once the dependency finishes installing, we'll need to `require` it in our `app.js`.
 
 ```js
 const express = require('express')
 const cors = require('cors')
+const logger = require('morgan')
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -84,6 +86,7 @@ Add the following to your `app.js` in the `your code goes here` section.
 
 ```js
 app.use(cors())
+app.use(logger('dev'))
 // the following middleware comes out of the box with express...
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -93,6 +96,8 @@ By invoking the `.use()` method, we are telling our Express app to use these pac
 
 The `cors` package enables cross origin resource sharing for our app.
 Feel free to look this up on your own time.
+
+The `morgan` package logs HTTP requests along with some other information depending upon its configuration and the preset used.
 
 The `json` method allows us to send json information to our server and the `urlEncoded` method allows us to send encoded forms to our server.
 
